@@ -3,40 +3,99 @@
     Student ID           S2028248
     Programme of Study   BSc (Hons) Computer Games (Software Development)-->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/salutation"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Welcome to Mobile Platform Development"/>
+    <ViewSwitcher
+        android:id="@+id/viewSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/startButton"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Press to get data"/>
+            android:layout_height="fill_parent">
 
-        <TextView
-            android:id="@+id/acknowledgement"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Contains BBC weather data from public RSS"/>
+            <TextView
+                android:id="@+id/loadingCurrentWeatherText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="Loading Weather..."/>
 
-        <TextView
-            android:id="@+id/rawDataDisplay"
+            <ProgressBar
+                android:id="@+id/loadCurrentWeatherBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/loadingCurrentWeatherText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:max="6" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Raw Data is Displayed here"/>
-    </LinearLayout>
-</ScrollView>
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/salutation"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Welcome to Mobile Platform Development"/>
+
+                <Button
+                    android:id="@+id/startButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Press to get data"/>
+
+                <TextView
+                    android:id="@+id/acknowledgement"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Contains BBC weather data from public RSS"/>
+
+                <TextView
+                    android:id="@+id/rawDataDisplay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Raw Data is Displayed here"/>
+            </LinearLayout>
+        </ScrollView>
+    </ViewSwitcher>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Name                 Alexander Smith
+    Student ID           S2028248
+    Programme of Study   BSc (Hons) Computer Games (Software Development)-->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/glasgow"
+        android:title="Glasgow" />
+
+    <item
+        android:id="@+id/london"
+        android:title="London" />
+
+    <item
+        android:id="@+id/newyork"
+        android:title="New York" />
+
+    <item
+        android:id="@+id/oman"
+        android:title="Oman" />
+
+    <item
+        android:id="@+id/mauritius"
+        android:title="Mauritius" />
+
+    <item
+        android:id="@+id/bangladesh"
+        android:title="Bangladesh" />
+</menu>
