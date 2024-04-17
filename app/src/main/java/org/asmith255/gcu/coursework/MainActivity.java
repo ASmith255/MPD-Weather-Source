@@ -9,6 +9,9 @@ package org.asmith255.gcu.coursework;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,9 +22,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -32,6 +39,8 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -40,6 +49,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewSwitcher pageSwitcher;
 
     private ProgressBar currentWeatherLoadProgressBar;
+
+    private ImageView currentWeatherIcon;
+    private TextView currentLocationNameText;
+    private TextView currentDateText;
+    private TextView currentTemperatureText;
+    private TextView currentWindText;
+    private TextView currentWeatherText;
+    private TextView currentHumidityText;
+    private TextView currentVisibilityText;
+
+    private Button previousLocationButton;
+    private Button nextLocationButton;
+
+    private Fragment forecastSection;
+    private Fragment forecastLoadingFragment;
+    private Fragment forecastFragment;
 
     private final String currentWeatherURLSource = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/rss/";
     private final String forecastURLSource = "https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/";
@@ -69,6 +94,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         currentWeatherLoadProgressBar = (ProgressBar)findViewById(R.id.loadCurrentWeatherBar);
 
+        currentWeatherIcon = (ImageView)findViewById(R.id.currentWeatherIcon);
+        currentLocationNameText = (TextView)findViewById(R.id.currentLocationNameText);
+        currentDateText = (TextView)findViewById(R.id.currentDateText);
+        currentTemperatureText = (TextView)findViewById(R.id.currentTemperatureText);
+        currentWindText = (TextView)findViewById(R.id.currentWindSpeedText);
+        currentWeatherText = (TextView)findViewById(R.id.currentWeatherText);
+        currentHumidityText = (TextView)findViewById(R.id.currentHumidityText);
+        currentVisibilityText = (TextView)findViewById(R.id.currentVisibilityText);
+
+        previousLocationButton = (Button)findViewById(R.id.previousLocationButton);
+        previousLocationButton.setOnClickListener(this);
+        nextLocationButton = (Button)findViewById(R.id.nextLocationButton);
+        nextLocationButton.setOnClickListener(this);
+
+        //Set up forecast fragments
+        forecastLoadingFragment = new ForecastLoading();
+        forecastFragment = new ForecastDisplay();
+
+        //Display initial forecast fragment (forecast loading bar)
+        forecastSection = forecastLoadingFragment;
+        ((ForecastLoading)forecastSection).fragmentReady = false;
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.forecastSection, forecastSection);
+        transaction.commit();
+
         //Set up Thread UI Update handler
         if (uiUpdateHandler == null)
         {
@@ -85,27 +136,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     else if (msg.what == MESSAGE_UPDATE_CURRENT_WEATHER_FINISHED)
                     {
                         //Switch from loading to weather screen
-                        currentWeatherLoadProgressBar.setProgress(1);
                         pageSwitcher.showNext();
                         showLocationData(currentPage);
                     }
                     else if (msg.what == MESSAGE_UPDATE_FORECAST_LOAD_PROGRESS)
                     {
-                        //If loaded forecast is for currently-viewed location,
-                        if ((int)msg.obj == currentPage)
+                        //If loaded forecast is for currently-viewed location & forecast load bar fragment is set up
+                        if ((int)msg.obj == currentPage && forecastSection == forecastLoadingFragment && ((ForecastLoading)forecastSection).fragmentReady)
                         {
-                            //  UPDATE FORECAST LOAD PROGRESS BAR
+                            //Update forecast load bar
+                            ((ForecastLoading)forecastSection).setLoadProgress(locations[currentPage].forecastsLoaded);
                         }
                     }
                     else if (msg.what == MESSAGE_UPDATE_FORECAST_FINISHED)
                     {
                         //If loaded forecast is for currently-viewed location,
-                        if ((int)msg.obj == currentPage)
+                        if ((int)msg.obj == currentPage && forecastSection == forecastLoadingFragment)
                         {
-                            //  COLLAPSE LOADING FORECAST FRAGMENT
-
-                            //  EXPAND FORECAST DATA FRAGMENT
-                            //  DISPLAY FORECAST DATA
+                            //Refresh page, to display current weather and the forecast
+                            showLocationData(currentPage);
                         }
                     }
                 }
@@ -120,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         locations[4] = new Location("Mauritius", "934154");
         locations[5] = new Location("Bangladesh", "1185241");
 
-        //Load and parse current weather for all locations
+        //Load and parse weather data for all locations on a separate thread
         startProgress();
     }
 
@@ -140,26 +189,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (item.getItemId())
         {
             case R.id.glasgow:
+                currentPage = 0;
                 showLocationData(0);
                 break;
 
             case R.id.london:
+                currentPage = 1;
                 showLocationData(1);
                 break;
 
             case R.id.newyork:
+                currentPage = 2;
                 showLocationData(2);
                 break;
 
             case R.id.oman:
+                currentPage = 3;
                 showLocationData(3);
                 break;
 
             case R.id.mauritius:
+                currentPage = 4;
                 showLocationData(4);
                 break;
 
             case R.id.bangladesh:
+                currentPage = 5;
                 showLocationData(5);
                 break;
 
@@ -173,18 +228,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-        //IF 'PREVIOUS LOCATION' BUTTON PRESSED,
-        //  IF currentPage == 0
-        //    currentPage = locations.length-1
-        //  ELSE
-        //    currentPage--
-        //  showLocationData(currentPage)
-        //ELSE IF 'NEXT LOCATION' BUTTON PRESSED,
-        //  IF currentPage == locations.length-1
-        //    currentPage = 0
-        //  ELSE
-        //    currentPage++
-        //  showLocationData(currentPage)
+        if (v == previousLocationButton)
+        {
+            if (currentPage == 0)
+            {
+                currentPage = locations.length - 1;
+            }
+            else
+            {
+                currentPage--;
+            }
+
+            showLocationData(currentPage);
+        }
+        else if (v == nextLocationButton)
+        {
+            if (currentPage == locations.length - 1)
+            {
+                currentPage = 0;
+            }
+            else
+            {
+                currentPage++;
+            }
+
+            showLocationData(currentPage);
+        }
     }
 
 
@@ -201,28 +270,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showLocationData(int locationIndex)
     {
-        //SHOW CURRENT LOCATION DATA
-        //-Location name
-        //-Date
-        //-Weather
-        //-Temperature
-        //-Wind Speed
-        //-Humidity
-        //-Visibility
+        //Show current location weather data
+        currentLocationNameText.setText(locations[locationIndex].locationName);
+        currentDateText.setText(locations[locationIndex].locationWeather.date);
+        currentWeatherText.setText(locations[locationIndex].locationWeather.weather);
+        currentTemperatureText.setText(locations[locationIndex].locationWeather.temperature);
+        currentWindText.setText("Wind: " + locations[locationIndex].locationWeather.windSpeed);
+        currentHumidityText.setText(locations[locationIndex].locationWeather.humidity + " Humidity");
+        currentVisibilityText.setText(locations[locationIndex].locationWeather.visibility + " Visibility");
 
-        //IF LOADING FORECAST FRAGMENT IS ACTIVE,
-        //COLLAPSE FORECAST LOADING BAR
+        //FIND AND SET CORRECT WEATHER ICON
 
-        //IF FORECAST DATA FRAGMENT IS ACTIVE,
-        //COLLAPSE ANY EXTENDED DETAIL PANELS
-        //COLLAPSE FORECAST DATA FRAGMENT
+        //MAKE GOOGLE MAPS FRAGMENT SHOW LOCATION
 
-        //IF FORECAST LOADED FOR NEW LOCATION,
-        //  ENLARGE FORECAST DATA FRAGMENT
-        //  SET FORECAST DATA FRAGMENT TEXT
-        //ELSE
-        //  ENLARGE LOADING FORECAST FRAGMENT
-        //  SET LOADING FORECAST PROGRESS BAR
+        //Close current forecast section fragment (whether loading or displaying details)
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(forecastSection).commitNow();
+
+        if (locations[locationIndex].forecastsLoaded == 3)
+        {
+            //Set forecast display fragment
+            forecastSection = forecastFragment;
+
+            //Pass forecast data to the fragment
+            Bundle forecastDataBundle = new Bundle();
+            forecastDataBundle.putParcelableArray("forecast", locations[locationIndex].locationForecast);
+            forecastSection.setArguments(forecastDataBundle);
+
+            //Inflate forecast fragment
+            transaction.replace(R.id.forecastSection, forecastSection);
+            transaction.commit();
+        }
+        else
+        {
+            //Set loading forecast bar
+            forecastSection = forecastLoadingFragment;
+            ((ForecastLoading)forecastSection).fragmentReady = false;
+
+            //Set initial loading bar progress
+            Bundle loadingProgressBundle = new Bundle();
+            loadingProgressBundle.putInt("progress", locations[locationIndex].forecastsLoaded);
+            forecastSection.setArguments(loadingProgressBundle);
+
+            //Inflate loading forecast bar
+            transaction.replace(R.id.forecastSection, forecastSection);
+            transaction.commit();
+        }
     }
 
 
@@ -322,7 +416,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             //Split title data using : and ,
                             String delimiter = "[:,]";
                             String[] splitData = temp.split(delimiter);
-                            currentParsingData.weather = splitData[1].trim();
+                            currentParsingData.weather = splitData[2].trim();
                         }
                         else if (xpp.getName().equalsIgnoreCase("pubDate") && currentParsingData != null)
                         {
@@ -474,50 +568,120 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String delimiter = "[:,]";
                             String[] splitData = temp.split(delimiter);
 
-                            //MAX TEMP
-                            String maxTempString = splitData[1].trim();
-                            //Only take the temperature in celsius
-                            for (int maxTempCharIndex = 0; maxTempCharIndex < maxTempString.length(); maxTempCharIndex++)
+                            if (splitData[0].equalsIgnoreCase("Maximum Temperature"))
                             {
-                                if (maxTempString.charAt(maxTempCharIndex) == 'C')
+                                //MAX TEMP
+                                String maxTempString = splitData[1].trim();
+                                //Only take the temperature in celsius
+                                for (int maxTempCharIndex = 0; maxTempCharIndex < maxTempString.length(); maxTempCharIndex++)
                                 {
-                                    currentParsingData[dayIndex].maxTemp = maxTempString.substring(0, maxTempCharIndex+1);
-                                    break;
+                                    if (maxTempString.charAt(maxTempCharIndex) == 'C')
+                                    {
+                                        currentParsingData[dayIndex].maxTemp = maxTempString.substring(0, maxTempCharIndex+1);
+                                        break;
+                                    }
                                 }
-                            }
 
-                            //MIN TEMP
-                            String minTempString = splitData[3].trim();
-                            //Only take the temperature in celsius
-                            for (int minTempCharIndex = 0; minTempCharIndex < minTempString.length(); minTempCharIndex++)
+                                //MIN TEMP
+                                String minTempString = splitData[3].trim();
+                                //Only take the temperature in celsius
+                                for (int minTempCharIndex = 0; minTempCharIndex < minTempString.length(); minTempCharIndex++)
+                                {
+                                    if (minTempString.charAt(minTempCharIndex) == 'C')
+                                    {
+                                        currentParsingData[dayIndex].minTemp = minTempString.substring(0, minTempCharIndex+1);
+                                        break;
+                                    }
+                                }
+
+
+                                //WIND DIRECTION
+                                String windDirectionString = splitData[5].trim();
+                                if (windDirectionString.equals("Direction not available"))
+                                {
+                                    currentParsingData[dayIndex].windDirection = "--";
+                                }
+                                else
+                                {
+                                    String[] windDirectionSplit = windDirectionString.split("[\\s]");
+                                    StringBuilder windDirection = new StringBuilder();
+                                    for (int windDirWordIndex = 0; windDirWordIndex < windDirectionSplit.length; windDirWordIndex++)
+                                    {
+                                        windDirection.append(windDirectionSplit[windDirWordIndex].charAt(0));
+                                    }
+                                    currentParsingData[dayIndex].windDirection = windDirection.toString();
+                                }
+
+                                //WIND SPEED
+                                currentParsingData[dayIndex].windSpeed = splitData[7].trim();
+
+                                //VISIBILITY
+                                currentParsingData[dayIndex].visibility = splitData[9].trim();
+
+                                //PRESSURE
+                                currentParsingData[dayIndex].pressure = splitData[11].trim();
+
+                                //HUMIDITY
+                                currentParsingData[dayIndex].humidity = splitData[13].trim();
+
+                                //UV RISK
+                                currentParsingData[dayIndex].uvRisk = splitData[15].trim();
+
+                                //POLLUTION
+                                currentParsingData[dayIndex].pollution = splitData[17].trim();
+                            }
+                            else
                             {
-                                if (minTempString.charAt(minTempCharIndex) == 'C')
+                                //MAX TEMP
+                                currentParsingData[dayIndex].maxTemp = "--";
+
+                                //MIN TEMP
+                                String minTempString = splitData[1].trim();
+                                //Only take the temperature in celsius
+                                for (int minTempCharIndex = 0; minTempCharIndex < minTempString.length(); minTempCharIndex++)
                                 {
-                                    currentParsingData[dayIndex].minTemp = minTempString.substring(0, minTempCharIndex+1);
-                                    break;
+                                    if (minTempString.charAt(minTempCharIndex) == 'C')
+                                    {
+                                        currentParsingData[dayIndex].minTemp = minTempString.substring(0, minTempCharIndex+1);
+                                        break;
+                                    }
                                 }
+
+                                //WIND DIRECTION
+                                String windDirectionString = splitData[3].trim();
+                                if (windDirectionString.equals("Direction not available"))
+                                {
+                                    currentParsingData[dayIndex].windDirection = "--";
+                                }
+                                else
+                                {
+                                    String[] windDirectionSplit = windDirectionString.split("[\\s]");
+                                    StringBuilder windDirection = new StringBuilder();
+                                    for (int windDirWordIndex = 0; windDirWordIndex < windDirectionSplit.length; windDirWordIndex++)
+                                    {
+                                        windDirection.append(windDirectionSplit[windDirWordIndex].charAt(0));
+                                    }
+                                    currentParsingData[dayIndex].windDirection = windDirection.toString();
+                                }
+
+                                //WIND SPEED
+                                currentParsingData[dayIndex].windSpeed = splitData[5].trim();
+
+                                //VISIBILITY
+                                currentParsingData[dayIndex].visibility = splitData[7].trim();
+
+                                //PRESSURE
+                                currentParsingData[dayIndex].pressure = splitData[9].trim();
+
+                                //HUMIDITY
+                                currentParsingData[dayIndex].humidity = splitData[11].trim();
+
+                                //UV RISK
+                                currentParsingData[dayIndex].uvRisk = splitData[13].trim();
+
+                                //POLLUTION
+                                currentParsingData[dayIndex].pollution = splitData[15].trim();
                             }
-
-                            //WIND DIRECTION
-                            currentParsingData[dayIndex].windDirection = splitData[5].trim();
-
-                            //WIND SPEED
-                            currentParsingData[dayIndex].windSpeed = splitData[7].trim();
-
-                            //VISIBILITY
-                            currentParsingData[dayIndex].visibility = splitData[9].trim();
-
-                            //PRESSURE
-                            currentParsingData[dayIndex].pressure = splitData[11].trim();
-
-                            //HUMIDITY
-                            currentParsingData[dayIndex].humidity = splitData[13].trim();
-
-                            //UV RISK
-                            currentParsingData[dayIndex].uvRisk = splitData[15].trim();
-
-                            //POLLUTION
-                            currentParsingData[dayIndex].pollution = splitData[17].trim();
                         }
                     }
                     else if (eventType == XmlPullParser.END_TAG)

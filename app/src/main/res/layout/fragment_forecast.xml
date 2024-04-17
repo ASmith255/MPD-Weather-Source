@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Name                 Alexander Smith
+    Student ID           S2028248
+    Programme of Study   BSc (Hons) Computer Games (Software Development)-->
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:stretchColumns="*">
+
+    <TableRow>
+        <TextView
+            android:id="@+id/forecastDay1Day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="day"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""/>
+
+        <ImageView
+            android:id="@+id/forecastDay1Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/forecastDay1Temp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="70C / 700C"/>
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/forecastDay1ExpandButton"
+            android:layout_span="4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Expand Details"/>
+    </TableRow>
+
+    <TableLayout
+        android:id="@+id/forecastDay1Expanded"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/forecastDay1WeatherDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_span="2"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Wind:"/>
+
+            <TextView
+                android:id="@+id/forecastDay1WindSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Humidity:"/>
+
+            <TextView
+                android:id="@+id/forecastDay1Humidity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp%"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Visibility:"/>
+
+            <TextView
+                android:id="@+id/forecastDay1Visibility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:id="@+id/forecastDay1WindDirection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="UV Risk:"/>
+
+            <TextView
+                android:id="@+id/forecastDay1UVRisk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Pollution:"/>
+
+            <TextView
+                android:id="@+id/forecastDay1Pollution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Pressure:"/>
+
+            <TextView
+                android:id="@+id/forecastDay1Pressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+        </TableRow>
+    </TableLayout>
+
+
+    <TableRow
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/forecastDay2Day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="day"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""/>
+
+        <ImageView
+            android:id="@+id/forecastDay2Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/forecastDay2Temp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="70C / 700C"/>
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/forecastDay2ExpandButton"
+            android:layout_span="4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Expand Details"/>
+    </TableRow>
+
+    <TableLayout
+        android:id="@+id/forecastDay2Expanded"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/forecastDay2WeatherDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_span="2"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Wind:"/>
+
+            <TextView
+                android:id="@+id/forecastDay2WindSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Humidity:"/>
+
+            <TextView
+                android:id="@+id/forecastDay2Humidity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp%"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Visibility:"/>
+
+            <TextView
+                android:id="@+id/forecastDay2Visibility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:id="@+id/forecastDay2WindDirection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="UV Risk:"/>
+
+            <TextView
+                android:id="@+id/forecastDay2UVRisk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Pollution:"/>
+
+            <TextView
+                android:id="@+id/forecastDay2Pollution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Pressure:"/>
+
+            <TextView
+                android:id="@+id/forecastDay2Pressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+        </TableRow>
+    </TableLayout>
+
+
+    <TableRow
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/forecastDay3Day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="day"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""/>
+
+        <ImageView
+            android:id="@+id/forecastDay3Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/forecastDay3Temp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="70C / 700C"/>
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/forecastDay3ExpandButton"
+            android:layout_span="4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Expand Details"/>
+    </TableRow>
+
+    <TableLayout
+        android:id="@+id/forecastDay3Expanded"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/forecastDay3WeatherDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_span="2"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Wind:"/>
+
+            <TextView
+                android:id="@+id/forecastDay3WindSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Humidity:"/>
+
+            <TextView
+                android:id="@+id/forecastDay3Humidity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp%"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Visibility:"/>
+
+            <TextView
+                android:id="@+id/forecastDay3Visibility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:id="@+id/forecastDay3WindDirection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="UV Risk:"/>
+
+            <TextView
+                android:id="@+id/forecastDay3UVRisk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Pollution:"/>
+
+            <TextView
+                android:id="@+id/forecastDay3Pollution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Pressure:"/>
+
+            <TextView
+                android:id="@+id/forecastDay3Pressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="temp"/>
+        </TableRow>
+    </TableLayout>
+</TableLayout>

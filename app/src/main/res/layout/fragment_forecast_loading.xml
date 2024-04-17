@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Name                 Alexander Smith
+    Student ID           S2028248
+    Programme of Study   BSc (Hons) Computer Games (Software Development)-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragmentForecastLoading">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="Loading Forecast..."/>
+
+    <ProgressBar
+        android:id="@+id/loadForecastBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:max="3" />
+</LinearLayout>

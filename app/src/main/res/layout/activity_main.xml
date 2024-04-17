@@ -70,31 +70,100 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/salutation"
+                    android:id="@+id/currentLocationNameText"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
                     android:textSize="20sp"
-                    android:text="Welcome to Mobile Platform Development"/>
-
-                <Button
-                    android:id="@+id/startButton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Press to get data"/>
+                    android:text="location"/>
 
                 <TextView
-                    android:id="@+id/acknowledgement"
+                    android:id="@+id/currentDateText"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:textSize="20sp"
-                    android:text="Contains BBC weather data from public RSS"/>
+                    android:text="date"/>
 
-                <TextView
-                    android:id="@+id/rawDataDisplay"
+                <TableLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="Raw Data is Displayed here"/>
+                    android:layout_margin="10dp"
+                    android:stretchColumns="*">
+
+                    <TableRow>
+                        <ImageView
+                            android:id="@+id/currentWeatherIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/currentTemperatureText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="temp"/>
+
+                        <TextView
+                            android:id="@+id/currentWindSpeedText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Wind: windSpeed"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/currentWeatherText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="weatherDesc"/>
+
+                        <TextView
+                            android:id="@+id/currentHumidityText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="humidity Humidity"/>
+
+                        <TextView
+                            android:id="@+id/currentVisibilityText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="visibility Visibility"/>
+                    </TableRow>
+                </TableLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/previousLocationButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="PREVIOUS"/>
+
+                    <Button
+                        android:id="@+id/nextLocationButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="NEXT"/>
+                </LinearLayout>
+
+                <!-- GOOGLE MAPS FRAGMENT -->
+
+                <!-- WEATHER FORECAST FRAGMENT -->
+                <FrameLayout
+                    android:id="@+id/forecastSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </ScrollView>
     </ViewSwitcher>

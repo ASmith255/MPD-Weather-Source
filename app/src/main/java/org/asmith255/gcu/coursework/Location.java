@@ -11,8 +11,10 @@ public class Location
     public String locationName;
     public String locationCode;
 
-    public CurrentWeather locationWeather = new CurrentWeather();
-    public ForecastWeather[] locationForecast = new ForecastWeather[3];
+    //MAP COORDINATES
+
+    public CurrentWeather locationWeather;
+    public ForecastWeather[] locationForecast;
     public int forecastsLoaded;
 
 
