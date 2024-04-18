@@ -147,6 +147,7 @@ public class ForecastDisplay extends Fragment implements View.OnClickListener
         day1Date.setText(storedForecasts[0].day);
         day1Temperature.setText(storedForecasts[0].minTemp + " / " + storedForecasts[0].maxTemp);
         day1WeatherDesc.setText(storedForecasts[0].weather);
+        day1Icon.setImageResource(findWeatherIcon(storedForecasts[0].weather));
         day1WindSpeed.setText(storedForecasts[0].windSpeed);
         day1WindDirection.setText(storedForecasts[0].windDirection);
         day1Humidity.setText(storedForecasts[0].humidity);
@@ -159,6 +160,7 @@ public class ForecastDisplay extends Fragment implements View.OnClickListener
         day2Date.setText(storedForecasts[1].day);
         day2Temperature.setText(storedForecasts[1].minTemp + " / " + storedForecasts[1].maxTemp);
         day2WeatherDesc.setText(storedForecasts[1].weather);
+        day2Icon.setImageResource(findWeatherIcon(storedForecasts[1].weather));
         day2WindSpeed.setText(storedForecasts[1].windSpeed);
         day2WindDirection.setText(storedForecasts[1].windDirection);
         day2Humidity.setText(storedForecasts[1].humidity);
@@ -170,6 +172,7 @@ public class ForecastDisplay extends Fragment implements View.OnClickListener
         day3Date.setText(storedForecasts[2].day);
         day3Temperature.setText(storedForecasts[2].minTemp + " / " + storedForecasts[2].maxTemp);
         day3WeatherDesc.setText(storedForecasts[2].weather);
+        day3Icon.setImageResource(findWeatherIcon(storedForecasts[2].weather));
         day3WindSpeed.setText(storedForecasts[2].windSpeed);
         day3WindDirection.setText(storedForecasts[2].windDirection);
         day3Humidity.setText(storedForecasts[2].humidity);
@@ -177,6 +180,44 @@ public class ForecastDisplay extends Fragment implements View.OnClickListener
         day3UVRisk.setText(storedForecasts[2].uvRisk);
         day3Pollution.setText(storedForecasts[2].pollution);
         day3Pressure.setText(storedForecasts[2].pressure);
+    }
+
+
+    private int findWeatherIcon(String weather)
+    {
+        //Weather icon
+        switch(weather)
+        {
+            case "Clear Sky":
+            case "Sunny":
+                return R.drawable.ic_weather_sun;
+
+            case "Sunny Intervals":
+            case "Partly Cloudy":
+                return R.drawable.ic_weather_cloudy_sun;
+
+            case "Light Cloud":
+                return R.drawable.ic_weather_cloud;
+
+            case "Light Rain Showers":
+            case "Heavy Rain Showers":
+                return R.drawable.ic_weather_rain_sun;
+
+            case "Light Rain":
+            case "Drizzle":
+            case "Heavy Rain":
+                return R.drawable.ic_weather_rain;
+
+            case "Thunder Storm":
+                return R.drawable.ic_weather_thunder;
+
+            case "Light Snow":
+            case "Heavy Snow":
+                return R.drawable.ic_weather_snow;
+
+            default:
+                return R.drawable.ic_weather_missing;
+        }
     }
 
 

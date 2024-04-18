@@ -89,13 +89,6 @@
                     android:textSize="20sp"
                     android:text="date"/>
 
-                <ImageView
-                    android:id="@+id/currentWeatherIcon"
-                    android:layout_height="60dp"
-                    android:layout_width="fill_parent"
-                    android:layout_marginTop="10dp"
-                    app:tint="@color/Black"/>
-
                 <TableLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -103,14 +96,30 @@
                     android:stretchColumns="*">
 
                     <TableRow>
+                        <ImageView
+                            android:id="@+id/currentWeatherIcon"
+                            android:layout_height="60dp"
+                            android:layout_width="0dp"
+                            app:tint="@color/Black"/>
+
                         <TextView
                             android:id="@+id/currentTemperatureText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:textColor="@color/Black"
                             android:text="temp"/>
 
+                        <TextView
+                            android:id="@+id/currentWindSpeedText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/Black"
+                            android:text="Wind: windSpeed"/>
+                    </TableRow>
+
+                    <TableRow>
                         <TextView
                             android:id="@+id/currentWeatherText"
                             android:layout_width="0dp"
@@ -120,15 +129,6 @@
                             android:textStyle="bold"
                             android:text="weatherDesc"/>
 
-                        <TextView
-                            android:id="@+id/currentWindSpeedText"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/Black"
-                            android:text="Wind: windSpeed"/>
-                    </TableRow>
-
-                    <TableRow>
                         <TextView
                             android:id="@+id/currentHumidityText"
                             android:layout_width="0dp"
@@ -141,7 +141,7 @@
                             android:id="@+id/currentVisibilityText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_column="2"
+                            android:layout_gravity="center_vertical"
                             android:textColor="@color/Black"
                             android:text="visibiliy Visibility"/>
                     </TableRow>

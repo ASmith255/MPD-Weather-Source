@@ -275,9 +275,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentHumidityText.setText(locations[locationIndex].locationWeather.humidity + " Humidity");
         currentVisibilityText.setText(locations[locationIndex].locationWeather.visibility + " Visibility");
 
-        //FIND AND SET CORRECT WEATHER ICON
+        //Weather icon
+        switch(currentWeatherText.getText().toString())
+        {
+            case "Clear Sky":
+            case "Sunny":
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_sun);
+                break;
 
-        //MAKE GOOGLE MAPS FRAGMENT SHOW LOCATION
+            case "Sunny Intervals":
+            case "Partly Cloudy":
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_cloudy_sun);
+                break;
+
+            case "Light Cloud":
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_cloud);
+                break;
+
+            case "Light Rain Showers":
+            case "Heavy Rain Showers":
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_rain_sun);
+                break;
+
+            case "Light Rain":
+            case "Drizzle":
+            case "Heavy Rain":
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_rain);
+                break;
+
+            case "Thunder Storm":
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_thunder);
+                break;
+
+            case "Light Snow":
+            case "Heavy Snow":
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_snow);
+                break;
+
+            default:
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_missing);
+                break;
+        }
 
         //Close current forecast section fragment (whether loading or displaying details)
         FragmentManager manager = getSupportFragmentManager();

@@ -92,6 +92,22 @@
                     android:textColor="@color/Black"
                     android:textSize="16sp"
                     android:text="temp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="Humidity:"/>
+
+                <TextView
+                    android:id="@+id/forecastDay1Humidity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:text="temp"/>
             </TableRow>
 
             <TableRow>
@@ -119,6 +135,22 @@
                     android:textColor="@color/Black"
                     android:textSize="16sp"
                     android:text="temp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="Pressure:"/>
+
+                <TextView
+                    android:id="@+id/forecastDay1Pressure"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:text="temp"/>
             </TableRow>
 
             <TableRow>
@@ -141,40 +173,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:text="Humidity:"/>
-
-                <TextView
-                    android:id="@+id/forecastDay1Humidity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/Black"
-                    android:textSize="16sp"
-                    android:text="temp"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:text="Pressure:"/>
-
-                <TextView
-                    android:id="@+id/forecastDay1Pressure"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/Black"
-                    android:textSize="16sp"
-                    android:text="temp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_column="4"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -275,6 +274,22 @@
                     android:textColor="@color/Black"
                     android:textSize="16sp"
                     android:text="temp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="Humidity:"/>
+
+                <TextView
+                    android:id="@+id/forecastDay2Humidity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:text="temp"/>
             </TableRow>
 
             <TableRow>
@@ -302,6 +317,22 @@
                     android:textColor="@color/Black"
                     android:textSize="16sp"
                     android:text="temp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="Pressure:"/>
+
+                <TextView
+                    android:id="@+id/forecastDay2Pressure"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:text="temp"/>
             </TableRow>
 
             <TableRow>
@@ -324,40 +355,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:text="Humidity:"/>
-
-                <TextView
-                    android:id="@+id/forecastDay2Humidity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/Black"
-                    android:textSize="16sp"
-                    android:text="temp"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:text="Pressure:"/>
-
-                <TextView
-                    android:id="@+id/forecastDay2Pressure"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/Black"
-                    android:textSize="16sp"
-                    android:text="temp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_column="4"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -458,6 +456,22 @@
                     android:textColor="@color/Black"
                     android:textSize="16sp"
                     android:text="temp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="Humidity:"/>
+
+                <TextView
+                    android:id="@+id/forecastDay3Humidity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:text="temp"/>
             </TableRow>
 
             <TableRow>
@@ -485,6 +499,22 @@
                     android:textColor="@color/Black"
                     android:textSize="16sp"
                     android:text="temp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="Pressure:"/>
+
+                <TextView
+                    android:id="@+id/forecastDay3Pressure"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:text="temp"/>
             </TableRow>
 
             <TableRow>
@@ -507,40 +537,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:text="Humidity:"/>
-
-                <TextView
-                    android:id="@+id/forecastDay3Humidity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/Black"
-                    android:textSize="16sp"
-                    android:text="temp"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:text="Pressure:"/>
-
-                <TextView
-                    android:id="@+id/forecastDay3Pressure"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/Black"
-                    android:textSize="16sp"
-                    android:text="temp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_column="4"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="16sp"
