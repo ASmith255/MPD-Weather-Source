@@ -11,11 +11,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
 
+import android.app.AlarmManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +40,10 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -110,11 +117,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Display initial forecast fragment (forecast loading bar)
         forecastSection = forecastLoadingFragment;
-        ((ForecastLoading)forecastSection).fragmentReady = false;
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.forecastSection, forecastSection);
-        transaction.commit();
+        transaction.commitNow();
 
         //Set up Thread UI Update handler
         if (uiUpdateHandler == null)
@@ -138,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     else if (msg.what == MESSAGE_UPDATE_FORECAST_LOAD_PROGRESS)
                     {
                         //If loaded forecast is for currently-viewed location & forecast load bar fragment is set up
-                        if ((int)msg.obj == currentPage && forecastSection == forecastLoadingFragment && ((ForecastLoading)forecastSection).fragmentReady)
+                        if ((int)msg.obj == currentPage && forecastSection == forecastLoadingFragment)
                         {
                             //Update forecast load bar
                             ((ForecastLoading)forecastSection).setLoadProgress(locations[currentPage].forecastsLoaded);
@@ -278,9 +284,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Weather icon
         switch(currentWeatherText.getText().toString())
         {
-            case "Clear Sky":
             case "Sunny":
                 currentWeatherIcon.setImageResource(R.drawable.ic_weather_sun);
+                break;
+
+            case "Clear Sky":
+                currentWeatherIcon.setImageResource(R.drawable.ic_weather_night);
                 break;
 
             case "Sunny Intervals":
@@ -334,13 +343,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             //Inflate forecast fragment
             transaction.replace(R.id.forecastSection, forecastSection);
-            transaction.commit();
+            transaction.commitNow();
         }
         else
         {
             //Set loading forecast bar
             forecastSection = forecastLoadingFragment;
-            ((ForecastLoading)forecastSection).fragmentReady = false;
 
             //Set initial loading bar progress
             Bundle loadingProgressBundle = new Bundle();
@@ -349,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             //Inflate loading forecast bar
             transaction.replace(R.id.forecastSection, forecastSection);
-            transaction.commit();
+            transaction.commitNow();
         }
     }
 

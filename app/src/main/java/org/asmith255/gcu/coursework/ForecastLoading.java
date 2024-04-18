@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 public class ForecastLoading extends Fragment
 {
     private ProgressBar loadingProgress;
-    public boolean fragmentReady = false;
 
 
     public ForecastLoading()
@@ -28,8 +27,6 @@ public class ForecastLoading extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        fragmentReady = false;
-
         View v = inflater.inflate(R.layout.fragment_forecast_loading, container, false);
 
         Bundle progressBundle = getArguments();
@@ -43,8 +40,6 @@ public class ForecastLoading extends Fragment
         {
             loadingProgress.setProgress(0);
         }
-
-        fragmentReady = true;
 
         return v;
     }

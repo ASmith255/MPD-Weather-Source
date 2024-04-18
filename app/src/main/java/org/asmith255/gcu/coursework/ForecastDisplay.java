@@ -188,9 +188,11 @@ public class ForecastDisplay extends Fragment implements View.OnClickListener
         //Weather icon
         switch(weather)
         {
-            case "Clear Sky":
             case "Sunny":
                 return R.drawable.ic_weather_sun;
+
+            case "Clear Sky":
+                return R.drawable.ic_weather_night;
 
             case "Sunny Intervals":
             case "Partly Cloudy":
