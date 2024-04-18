@@ -56,6 +56,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:progressTint="@color/MediumTurquoise"
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:max="6" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -77,6 +78,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="20sp"
+                    android:textColor="@color/Black"
                     android:text="location"/>
 
                 <TextView
@@ -105,12 +107,14 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:textColor="@color/Black"
                             android:text="temp"/>
 
                         <TextView
                             android:id="@+id/currentWindSpeedText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/Black"
                             android:text="Wind: windSpeed"/>
                     </TableRow>
 
@@ -120,6 +124,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:textColor="@color/Black"
                             android:text="weatherDesc"/>
 
                         <TextView
@@ -127,13 +132,15 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:textColor="@color/Black"
                             android:text="humidity Humidity"/>
 
                         <TextView
                             android:id="@+id/currentVisibilityText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="visibility Visibility"/>
+                            android:textColor="@color/Black"
+                            android:text="visibiliy Visibility"/>
                     </TableRow>
                 </TableLayout>
 
@@ -157,7 +164,15 @@
                         android:text="NEXT"/>
                 </LinearLayout>
 
-                <!-- GOOGLE MAPS FRAGMENT -->
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/Black"
+                    android:text="Forecast"/>
 
                 <!-- WEATHER FORECAST FRAGMENT -->
                 <FrameLayout
